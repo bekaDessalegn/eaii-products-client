@@ -23,6 +23,8 @@ module.exports = {
         onBackground: "#000000",
         onSurface: "#000000",
         "dangerColor": "#CC3333",
+        gradient1: "#161a61",
+        gradient2: "#f7941d"
       }
     },
   },

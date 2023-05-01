@@ -1,8 +1,8 @@
 header{ 
-    @apply sticky z-[30px] top-0 pl-[50px] pr-[50px] bg-white
+    @apply sticky z-[1] top-0 pl-[50px] pr-[50px] bg-white
 }
 nav{
-    @apply flex p-[16px] justify-between items-center text-secondaryColor font-semibold
+    @apply flex p-[16px] justify-between items-center text-secondaryColor font-semibold 
 }
 .nav__menu-bar{
     @apply flex flex-col gap-[6px] cursor-pointer

@@ -3,13 +3,14 @@ import { useRouter } from 'next/router'
 import { useRef, useState } from "react";
 import { AiOutlineDown } from 'react-icons/ai'
 
-const NavItem = ({ text, href }) => {
+const NavItem = ({ category, href, active }) => {
   const router = useRouter()
-  
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
   const timeoutRef = useRef(null);
-  
+
+  const {id} = router.query;
+
   const handleMouseEnter = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     setShowDropdown(true);
@@ -28,21 +29,23 @@ const NavItem = ({ text, href }) => {
   };
 
   return (
+    <>
     <Link href={href}>
       <div 
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className="flex flex-row justify-center items-center text-secondaryColor">
-      <div
+      <p
         className={`nav__item ${
-          router.pathname === href ? "active" : ""
+          id == category.id ? "active" : ""
         }`}
       >
-        {text}
+        {category.name}
+      </p>
+      <AiOutlineDown className={`ml-1 mt-1 h-4 w-4 ${id == category.id ? "text-primaryColor" : "text-secondaryColor"}`}/>
       </div>
-      <AiOutlineDown className="ml-1 mt-1 h-4 w-4 text-secondaryColor"/>
-      </div>
-      <div
+    </Link>
+    <div
           ref={dropdownRef}
           className={`${
             showDropdown ? '' : 'hidden'
@@ -50,23 +53,15 @@ const NavItem = ({ text, href }) => {
           onMouseEnter={handleDropdownMouseEnter}
           onMouseLeave={handleDropdownMouseLeave}
         >
-        <Link href="/dropdown-item1">
+        {category.categories_product.map((product) => (
+          <Link href={`${href}#${product.title.split(" ").join("")}`}>
           <div className="block px-4 py-2 text-sm text-secondaryColor hover:text-primaryColor">
-            Dropdown item 1
+            {product.title}
           </div>
         </Link>
-        <Link href="/dropdown-item2">
-          <div className="block px-4 py-2 text-sm text-secondaryColor hover:text-primaryColor">
-            Dropdown item 2
-          </div>
-        </Link>
-        <Link href="/dropdown-item3">
-          <div className="block px-4 py-2 text-sm text-secondaryColor hover:text-primaryColor">
-            Dropdown item 3
-          </div>
-        </Link>
+        ))}
       </div>
-    </Link>
+    </>
   );
 };
 

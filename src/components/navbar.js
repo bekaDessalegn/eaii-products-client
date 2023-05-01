@@ -1,17 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NavItem from "./navbaritem.js";
 import logo from '../../public/images/logo.png'
-import NavDropDown from "./navdropdown.js";
 import { useRouter } from "next/router.js";
 
-const MENU_LIST = [
-    { text: "Home", href: "/" },
-    { text: "Admins", href: "/admins" },
-    { text: "Products", href: "/products" },
-    { text: "Categories", href: "/categories" },
-  ];
 
 const NavBar = () => {
 
@@ -19,6 +12,41 @@ const NavBar = () => {
   const [activeIdx, setActiveIdx] = useState(-1);
 
   const router = useRouter()
+
+  const [catgories, setCategories] = useState([])
+
+  const fetchData = () => {
+    const query = `
+        query {
+            categories {
+              id  
+              name
+              categories_product{
+              title
+            }
+            }
+          }
+        `;
+
+        const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-hasura-admin-secret': 'RwXFFFS6nr649I9NLuW7PPqkPmhRcCcIROfBzuuThluUe2tnQELWvhuaYFVpYkw3'
+        },
+        body: JSON.stringify({ query })
+        };
+
+        fetch('https://eaii-products.hasura.app/v1/graphql', options)
+        .then(response => response.json())
+        .then(data => {
+          setCategories(data.data.categories);
+        });
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <header>
@@ -48,15 +76,15 @@ const NavBar = () => {
         Home
       </div>
     </Link>
-          {MENU_LIST.map((menu, idx) => (
+          {catgories.map((menu, idx) => (
             <div
               onClick={() => {
                 setActiveIdx(idx);
                 setNavActive(false);
               }}
-              key={menu.text}
+              key={menu.name}
             >
-              <Link href='/category'><NavItem text='Health' href='/category' /></Link>
+              <NavItem category={menu} href={`/category/${menu.id}/category`} />
             </div>
           ))}
         </div>
