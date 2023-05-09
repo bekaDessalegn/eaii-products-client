@@ -29,13 +29,12 @@ const CategoryComponent = () => {
         const options = {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'x-hasura-admin-secret': 'RwXFFFS6nr649I9NLuW7PPqkPmhRcCcIROfBzuuThluUe2tnQELWvhuaYFVpYkw3'
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({ query })
         };
 
-        fetch('https://eaii-products.hasura.app/v1/graphql', options)
+        fetch(process.env.baseUrl, options)
         .then(response => response.json())
         .then(data => {
 
