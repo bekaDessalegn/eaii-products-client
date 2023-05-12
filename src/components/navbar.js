@@ -6,7 +6,7 @@ import logo from '../../public/images/logo.png'
 import { useRouter } from "next/router.js";
 
 
-const NavBar = () => {
+const NavBar = ({loadingState}) => {
 
   const [navActive, setNavActive] = useState(null);
   const [activeIdx, setActiveIdx] = useState(-1);
@@ -16,6 +16,9 @@ const NavBar = () => {
   const [catgories, setCategories] = useState([])
 
   const fetchData = () => {
+
+    loadingState(true)
+
     const query = `
         query {
             categories {
@@ -40,6 +43,7 @@ const NavBar = () => {
         .then(response => response.json())
         .then(data => {
           setCategories(data.data.categories);
+          loadingState(false)
         });
   }
 

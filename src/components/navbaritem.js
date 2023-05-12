@@ -34,7 +34,7 @@ const NavItem = ({ category, href, active }) => {
       <div 
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="flex flex-row justify-center items-center text-secondaryColor">
+      className="flex flex-row items-center text-secondaryColor">
       <p
         className={`nav__item ${
           id == category.id ? "active" : ""

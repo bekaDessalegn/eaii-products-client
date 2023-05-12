@@ -9,7 +9,7 @@ export default function Header(props) {
       <meta name="keywords" content={props.content} />
       <link rel="icon" href={props.icon} />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta property="og:image" content={'/Logo.png'} />
+      <meta property="og:image" content={props.icon} />
       <meta property="og:title" content={props.title} />
       <meta property="og:type" content={props.type} />
       <meta property="og:description" content={props.description} />
