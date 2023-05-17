@@ -48,7 +48,9 @@ const NavBar = ({loadingState}) => {
   }
 
   useEffect(() => {
-    fetchData();
+    if(catgories.length < 1){
+      fetchData();
+    }
   }, []);
 
   return (

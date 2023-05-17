@@ -3,13 +3,15 @@ import React, { useEffect, useState } from 'react'
 import {motion, AnimatePresence} from 'framer-motion';
 import { useRouter } from 'next/router';
 
-const CategoryComponent = () => {
+const CategoryComponent = ({loadingState}) => {
 
   const [categories, setCategories] = useState([])
   const router = useRouter()
   const {id} = router.query;
 
   const fetchData = () => {
+
+    loadingState(true);
 
     const query = `
         query {
@@ -18,7 +20,7 @@ const CategoryComponent = () => {
             description
             categories_product{
              title
-             url
+             link
              description
              image_path
              created_at
@@ -39,6 +41,8 @@ const CategoryComponent = () => {
         .then(response => response.json())
         .then(data => {
 
+          loadingState(false);
+
           let cats = data.data;
 
           if((typeof cats === 'undefined')) {
@@ -56,7 +60,7 @@ const CategoryComponent = () => {
   return (
     <>
     {
-      categories.length == 0 ? <div> No Products </div> :
+      categories.length == 0 ? <div>  </div> :
     <AnimatePresence>
     <div>
         <div className='hero h-[45vh] flex flex-col justify-center items-center mb-32 relative'>
@@ -68,7 +72,7 @@ const CategoryComponent = () => {
         <div className='w-full pr-20 md:pr-0 md:w-1/2 pl-20'>
           <p className='font-semibold text-[36px] pb-3'>{product.title}</p>
           <p>{product.description}</p>
-          <Link href={product.url}><p className='text-primaryColor mt-6 cursor-pointer'>Go to product</p></Link>
+          <Link href={product.link.url}><p className='text-primaryColor mt-6 cursor-pointer'>Go to product</p></Link>
         </div>
         <div className='w-1/2 h-full hidden md:flex justify-center'>
                 <motion.div 
@@ -92,7 +96,7 @@ const CategoryComponent = () => {
         <div className='w-full pl-20 md:pl-0 md:w-1/2 pr-20'>
       <p className='font-semibold text-[36px] pb-3'>{product.title}</p>
       <p>{product.description}</p>
-      <Link href={product.url}><p className='text-primaryColor mt-6 cursor-pointer'>Go to product</p></Link>
+      <Link href={product.link.url}><p className='text-primaryColor mt-6 cursor-pointer'>Go to product</p></Link>
     </div>
     </div>
         ))}

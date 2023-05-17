@@ -26,17 +26,21 @@ const Landing = () => {
         transition={{delay: 0.6}}
         className=' w-1/2 flex flex-col items-center justify-center -mt-40'>
             <p className={`text-[42px] text-onPrimary text-center font-bold`}>Products of Ethiopian Artificial Intelligence Institute</p>
-            <p className={`text-[20px] text-onPrimary mt-10 text-center`}>You can access all AII products here!</p>
-            <div className='w-[150px] py-3 cursor-pointer border-2 rounded-md text-onPrimary mt-10 text-center hover:bg-white hover:text-secondaryColor'>Get Access</div>
+            <p className={`text-[20px] text-onPrimary mt-10 text-center`}>You can access all EAII products here!</p>
         </motion.div>
         <motion.div 
         initial={{opacity: 0, x:100}}
         animate={{opacity:1, x:0}}
         exit={{opacity: 0, x: 100}}
         transition={{delay: 0.6}}
-        className='w-[400px] -mt-40'>
+        className='w-[400px] mt-40'>
             <Image src={landing} className='w-full h-full' />
         </motion.div>
+    </div>
+    <div className='grid lg:grid-cols-4 md:grid-cols-3 gap-10 mx-10 mt-10 absolute z-50'>
+      <div className='border-2 rounded-md px-8 py-8 bg-surface'>
+        Health
+      </div>
     </div>
   </div>
     </>

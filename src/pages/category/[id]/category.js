@@ -8,6 +8,7 @@ import logo from "../../../../public/images/logo.png"
 const CategoryPage = () => {
 
   const [isLoading, setIsLoading] = useState(false)
+  const [isCategoryLoading, setIsCategoryLoading] = useState(false)
 
   return (
     // isLoading ? <>
@@ -17,8 +18,8 @@ const CategoryPage = () => {
     // </> : 
     <>
     <NavBar loadingState = {(value) => setIsLoading(value)} />
-    <CategoryComponent/>
-    <Footer />
+    <CategoryComponent loadingState = {(value) => setIsCategoryLoading(value)} />
+    {!isCategoryLoading && <Footer />}
     </>
   )
 }
