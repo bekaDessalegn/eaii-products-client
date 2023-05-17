@@ -1,12 +1,60 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import landing from '../../public/images/landing.png'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const Landing = () => {
+
+  const [categories, setCategories] = useState([])
+  const [isLoading, setIsLoading] = useState(false);
+
+  const fetchData = () => {
+
+    setIsLoading(true);
+
+    const query = `
+        query {
+          categories{
+            id
+            name
+            description
+            icon
+          }
+          }
+        `;
+
+        const options = {
+        method: 'POST',
+        headers: {
+          "Accept": "*/*",
+          "Content-Type": "application/json"
+      },
+        body: JSON.stringify({ query })
+        };
+
+        fetch(process.env.baseUrl, options)
+        .then(response => response.json())
+        .then(data => {
+
+          let cats = data.data;
+
+          if((typeof cats === 'undefined')) {
+            setIsLoading(false);
+          } else {
+            console.log(data.data.categories)
+            setCategories(data.data.categories);
+            setIsLoading(false);
+          }
+        });
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <>
-    <div className='hero h-[100vh] relative'>
+    <div className='hero h-[100vh] relative mb-32'>
     <div className='absolute w-full -bottom-[150px] overflow-hidden'>
       <svg width="100%" height="355px" viewBox="0 0 1920 355" version="1.1" xmlns="http://www.w3.org/2000/svg">
         <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -37,10 +85,14 @@ const Landing = () => {
             <Image src={landing} className='w-full h-full' />
         </motion.div>
     </div>
-    <div className='grid lg:grid-cols-4 md:grid-cols-3 gap-10 mx-10 mt-10 absolute z-50'>
-      <div className='border-2 rounded-md px-8 py-8 bg-surface'>
-        Health
+    <div className='grid lg:grid-cols-4 md:grid-cols-3 gap-10 mx-24 mt-10 absolute z-50'>
+    {categories.map((category) => (
+        <div className='border-2 border-white rounded-md px-8 py-8 text-secondaryColor cursor-pointer hover:shadow hover:shadow-primaryColor hover:px-10 hover:py-10 transition-all hover:text-primaryColor'>
+        <img src={category.icon} className='w-[40px] h-[40px] mb-2' />
+        <p className='text-[24px] font-bold'>{category.name}</p>
+        <p className='text-[16px] text-secondaryColor'>{category.description}</p>
       </div>
+      ))}
     </div>
   </div>
     </>
