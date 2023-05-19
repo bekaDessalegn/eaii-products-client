@@ -14,11 +14,11 @@ const CategoryComponent = ({loadingState}) => {
   const {id} = router.query;
 
   const productIcons = [
-    {type: "Website", icon: CgWebsite}, 
-    {type: "Android", icon: AiFillAndroid}, 
-    {type: "iOS", icon: SiIos}, 
-    {type: "Desktop", icon: FaDesktop}, 
-    {type: "Telegram Bot", icon: FaTelegram}];
+    {type: "Website", icon: CgWebsite, text: "Visit Website"}, 
+    {type: "Android", icon: AiFillAndroid, text: "Download app on Playstore"}, 
+    {type: "iOS", icon: SiIos, text: "Download app on Appstore"}, 
+    {type: "Desktop", icon: FaDesktop, text: "Download setup here"}, 
+    {type: "Telegram Bot", icon: FaTelegram, text: "Go to Telegram Bot"}];
 
   const fetchData = () => {
 
@@ -29,7 +29,7 @@ const CategoryComponent = ({loadingState}) => {
           categories_by_pk(id: ${id}){
             name
             description
-            categories_product{
+            categories_product(order_by: {created_at: asc}){
              title
              link
              description
@@ -85,8 +85,10 @@ const CategoryComponent = ({loadingState}) => {
           <p>{product.description}</p>
           {product.link.map((link, index) => (
         <div key={index} className='flex flex-row gap-6 mt-6 items-center'>
-        {productIcons.map((productIcon) => ((productIcon.type === link.type) && <productIcon.icon size={30} className='text-primaryColor'/>))}
-        <Link href={link.url}><p className='text-primaryColor cursor-pointer'>Go to product</p></Link>
+        {productIcons.map((productIcon) => ((productIcon.type === link.type) && <div className='flex flex-row gap-6 items-center'>
+          <productIcon.icon size={30} className='text-primaryColor'/>
+          <Link href={link.url}><p className='text-primaryColor cursor-pointer'>{productIcon.text}</p></Link>
+          </div>))}
   </div>
       ))}
         </div>
@@ -114,8 +116,10 @@ const CategoryComponent = ({loadingState}) => {
       <p>{product.description}</p>
       {product.link.map((link, index) => (
         <div key={index} className='flex flex-row gap-6 mt-6 items-center'>
-        {productIcons.map((productIcon) => ((productIcon.type === link.type) && <productIcon.icon size={30} className='text-primaryColor'/>))}
-        <Link href={link.url}><p className='text-primaryColor cursor-pointer'>Go to product</p></Link>
+        {productIcons.map((productIcon) => ((productIcon.type === link.type) && <div className='flex flex-row gap-6 items-center'>
+          <productIcon.icon size={30} className='text-primaryColor'/>
+          <Link href={link.url}><p className='text-primaryColor cursor-pointer'>{productIcon.text}</p></Link>
+          </div>))}
   </div>
       ))}
     </div>

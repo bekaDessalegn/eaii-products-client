@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import landing from '../../public/images/landing.png'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
+import Link from 'next/link'
 
 const Landing = () => {
 
@@ -14,7 +15,7 @@ const Landing = () => {
 
     const query = `
         query {
-          categories{
+          categories(order_by: {created_at: asc}){
             id
             name
             description
@@ -66,7 +67,7 @@ const Landing = () => {
 
     </div>
 
-    <div className='h-full flex flex-row items-center justify-center'>
+    <div className='hidden md:h-full md:flex flex-row items-center justify-center'>
         <motion.div 
         initial={{opacity: 0, x:-100}}
         animate={{opacity:1, x:0}}
@@ -74,7 +75,6 @@ const Landing = () => {
         transition={{delay: 0.6}}
         className=' w-1/2 flex flex-col items-center justify-center -mt-40'>
             <p className={`text-[42px] text-onPrimary text-center font-bold`}>Products of Ethiopian Artificial Intelligence Institute</p>
-            <p className={`text-[20px] text-onPrimary mt-10 text-center`}>You can access all EAII products here!</p>
         </motion.div>
         <motion.div 
         initial={{opacity: 0, x:100}}
@@ -85,16 +85,41 @@ const Landing = () => {
             <Image src={landing} className='w-full h-full' />
         </motion.div>
     </div>
-    <div className='grid lg:grid-cols-4 md:grid-cols-3 gap-10 mx-24 mt-10 absolute z-50'>
+
+    <div className='md:hidden h-full flex flex-col items-center justify-center'>
+        <motion.div 
+        initial={{opacity: 0, x:-100}}
+        animate={{opacity:1, x:0}}
+        exit={{opacity: 0, x: -100}}
+        transition={{delay: 0.6}}
+        className=' w-full flex flex-col items-center justify-center mt-40'>
+            <p className={`text-[42px] text-onPrimary text-center font-bold`}>Products of Ethiopian Artificial Intelligence Institute</p>
+        </motion.div>
+        <motion.div 
+        initial={{opacity: 0, x:100}}
+        animate={{opacity:1, x:0}}
+        exit={{opacity: 0, x: 100}}
+        transition={{delay: 0.6}}
+        className='w-[200px]'>
+            <Image src={landing} />
+        </motion.div>
+    </div>
+  </div>
+  <div className='grid lg:grid-cols-4 md:grid-cols-3 gap-10 mx-24 mb-10 z-50'>
     {categories.map((category) => (
-        <div className='border-2 border-white rounded-md px-8 py-8 text-secondaryColor cursor-pointer hover:shadow hover:shadow-primaryColor hover:px-10 hover:py-10 transition-all hover:text-primaryColor'>
+        <Link href={`/category/${category.id}/category`}>
+        <motion.div 
+        initial= {{opacity: 0, y: 100}}
+        whileInView={{opacity: 1, y: 0}}
+        transition={{delay: 0.4}}
+         className='border-2 border-white rounded-md px-8 py-8 text-secondaryColor cursor-pointer hover:shadow hover:shadow-primaryColor hover:px-10 hover:py-10 transition-all hover:text-primaryColor'>
         <img src={category.icon} className='w-[40px] h-[40px] mb-2' />
         <p className='text-[24px] font-bold'>{category.name}</p>
         <p className='text-[16px] text-secondaryColor'>{category.description}</p>
-      </div>
+      </motion.div>
+      </Link>
       ))}
     </div>
-  </div>
     </>
   )
 }

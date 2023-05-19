@@ -21,10 +21,10 @@ const NavBar = ({loadingState}) => {
 
     const query = `
         query {
-            categories {
+            categories(order_by: {created_at: asc}) {
               id  
               name
-              categories_product{
+              categories_product(order_by: {created_at: asc}){
               title
             }
             }

@@ -21,8 +21,7 @@ export default function Home() {
     <>
     <NavBar loadingState = {(value) => setIsLoading(value)} />
     <Landing />
-    {/* <div className=' mt-48'></div> */}
-    {/* <Footer /> */}
+    <Footer />
     </>
   )
 }
