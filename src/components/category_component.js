@@ -83,10 +83,12 @@ const CategoryComponent = ({loadingState}) => {
         <div className='w-full pr-20 md:pr-0 md:w-1/2 pl-20'>
           <p className='font-semibold text-[36px] pb-3'>{product.title}</p>
           <p>{product.description}</p>
-          <div className='flex flex-row gap-6 mt-6 items-center'>
-          {productIcons.map((productIcon) => ((productIcon.type === product.link.type) && <productIcon.icon size={30} className='text-primaryColor'/>))}
-      <Link href={product.link.url}><p className='text-primaryColor cursor-pointer'>Go to product</p></Link>
-    </div>
+          {product.link.map((link, index) => (
+        <div key={index} className='flex flex-row gap-6 mt-6 items-center'>
+        {productIcons.map((productIcon) => ((productIcon.type === link.type) && <productIcon.icon size={30} className='text-primaryColor'/>))}
+        <Link href={link.url}><p className='text-primaryColor cursor-pointer'>Go to product</p></Link>
+  </div>
+      ))}
         </div>
         <div className='w-1/2 h-full hidden md:flex justify-center'>
                 <motion.div 
@@ -110,10 +112,12 @@ const CategoryComponent = ({loadingState}) => {
         <div className='w-full pl-20 md:pl-0 md:w-1/2 pr-20'>
       <p className='font-semibold text-[36px] pb-3'>{product.title}</p>
       <p>{product.description}</p>
-      <div className='flex flex-row gap-6 mt-6 items-center'>
-          {productIcons.map((productIcon) => ((productIcon.type === product.link.type) && <productIcon.icon size={30} className='text-primaryColor'/>))}
-      <Link href={product.link.url}><p className='text-primaryColor cursor-pointer'>Go to product</p></Link>
-    </div>
+      {product.link.map((link, index) => (
+        <div key={index} className='flex flex-row gap-6 mt-6 items-center'>
+        {productIcons.map((productIcon) => ((productIcon.type === link.type) && <productIcon.icon size={30} className='text-primaryColor'/>))}
+        <Link href={link.url}><p className='text-primaryColor cursor-pointer'>Go to product</p></Link>
+  </div>
+      ))}
     </div>
     </div>
         ))}
