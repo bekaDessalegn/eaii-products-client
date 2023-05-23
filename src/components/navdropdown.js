@@ -29,7 +29,8 @@ export default function NavDropDown() {
       >
         <Menu.Items className="absolute right-0 z-50 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
-            {categories.map((category) => (
+            {categories.map((category, index) => (
+              <div key={index}>
             <Menu.Item>
               {({ active }) => (
                 <a
@@ -42,7 +43,9 @@ export default function NavDropDown() {
                   {category}
                 </a>
               )}
-            </Menu.Item>))}
+            </Menu.Item>
+            </div>
+            ))}
           </div>
         </Menu.Items>
       </Transition>
