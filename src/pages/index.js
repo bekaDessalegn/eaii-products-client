@@ -13,11 +13,11 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false)
 
   return (
-    // isLoading ? <>
-    // <div className='w-screen h-screen bg-white flex justify-center items-center'>
-    //   <Image src={logo} className='animate-pulse max-w-[200px]' />
-    // </div>
-    // </> : 
+    isLoading ? <>
+    <div className='w-screen h-screen bg-white flex justify-center items-center'>
+      <Image src={logo} className='animate-pulse max-w-[200px]' />
+    </div>
+    </> : 
     <>
     <NavBar loadingState = {(value) => setIsLoading(value)} />
     <Landing />
