@@ -98,7 +98,7 @@ const CategoryComponent = ({loadingState}) => {
                 whileInView={{opacity: 1, x: 0}}
                 transition={{delay: 0.6}}
                 >
-                    <img className='max-w-[450px]' src={product.image_path} />
+                    <img className='max-w-[450px]' src={product.image_path} alt={`product image ${idx}`} />
                 </motion.div>
             </div>
         </div> : <div key={idx} id={product.title.split(" ").join("")} className='flex flex-row pt-32 pb-24'>
@@ -108,7 +108,7 @@ const CategoryComponent = ({loadingState}) => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{delay: 0.6}}
             >
-                <img className='max-w-[450px]' src={product.image_path} />
+                <img className='max-w-[450px]' src={product.image_path} alt={`product image ${idx}`} />
             </motion.div>
         </div>
         <div className='w-full pl-20 md:pl-0 md:w-1/2 pr-20'>

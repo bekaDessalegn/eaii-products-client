@@ -53,12 +53,14 @@ const NavItem = ({ category, href, active }) => {
           onMouseEnter={handleDropdownMouseEnter}
           onMouseLeave={handleDropdownMouseLeave}
         >
-        {category.categories_product.map((product) => (
+        {category.categories_product.map((product, index) => (
+          <div key={index}>
           <Link href={`${href}#${product.title.split(" ").join("")}`}>
           <div className="block px-4 py-2 text-sm text-secondaryColor hover:text-primaryColor">
             {product.title}
           </div>
         </Link>
+        </div>
         ))}
       </div>
     </>

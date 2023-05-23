@@ -82,7 +82,7 @@ const Landing = () => {
         exit={{opacity: 0, x: 100}}
         transition={{delay: 0.6}}
         className='w-[400px] mt-40'>
-            <Image src={landing} className='w-full h-full' />
+            <Image src={landing} className='w-full h-full' alt='landing'/>
         </motion.div>
     </div>
 
@@ -106,18 +106,20 @@ const Landing = () => {
     </div>
   </div>
   <div className='grid lg:grid-cols-4 md:grid-cols-3 gap-10 mx-24 mb-10 z-50'>
-    {categories.map((category) => (
+    {categories.map((category, index) => (
+      <div key={index}>
         <Link href={`/category/${category.id}/category`}>
         <motion.div 
         initial= {{opacity: 0, y: 100}}
         whileInView={{opacity: 1, y: 0}}
         transition={{delay: 0.4}}
          className='border-2 border-white rounded-md px-8 py-8 text-secondaryColor cursor-pointer hover:shadow hover:shadow-primaryColor hover:px-10 hover:py-10 transition-all hover:text-primaryColor'>
-        <img src={category.icon} className='w-[40px] h-[40px] mb-2' />
+        <img src={category.icon} className='w-[40px] h-[40px] mb-2' alt={`category icon ${index}`} />
         <p className='text-[24px] font-bold'>{category.name}</p>
         <p className='text-[16px] text-secondaryColor'>{category.description}</p>
       </motion.div>
       </Link>
+      </div>
       ))}
     </div>
     </>

@@ -58,7 +58,7 @@ const NavBar = ({loadingState}) => {
       <nav className={`nav`}>
         <div className="flex flex-row justify-center items-center">
         <Link href={"/"}>
-            <Image src={logo} width={70} height={70} />
+            <Image src={logo} width={70} height={70} alt="Logo" />
         </Link>
         <div className="w-3"></div>
         <p className="text-secondaryColor text-xl font-medium">Ethiopian Artificial Intelligence Institue</p>
